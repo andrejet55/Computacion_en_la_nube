@@ -1,0 +1,10 @@
+HTTP/1.0 503 Service Unavailable
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+<html><body><h1>ERROR 503: LO SENTIMOS EL SERVICIO NO ESTA DISPONIBLE</h1>
+VOLVEREMOS PRONTO <br>
+GRACIAS POR PREFERIRNOS! <3 <br>
+att: Carlos y Andrea 
+</body></html>

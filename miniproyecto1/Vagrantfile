@@ -1,0 +1,50 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$runserviceN2 = <<-SERVICEN2
+  sleep 15
+  node consulService/app/index2.js 3000 > /dev/null 2>&1 &
+  sleep 5
+  node consulService/app/index2.js 3001 > /dev/null 2>&1 &
+SERVICEN2
+
+$runserviceN3 = <<-SERVICEN3
+  sleep 15
+  node consulService/app/index3.js 3000 > /dev/null 2>&1 &
+  sleep 5
+  node consulService/app/index3.js 3001 > /dev/null 2>&1 &
+SERVICEN3
+
+Vagrant.configure("2") do |config|
+
+  if Vagrant.has_plugin? "vagrant-vbguest"
+    config.vbguest.no_install  = true
+    config.vbguest.auto_update = false
+    config.vbguest.no_remote   = true
+  end
+
+  config.vm.define :clienteN3 do |clienteN3|
+    clienteN3.vm.box = "bento/ubuntu-22.04"
+    clienteN3.vm.network :private_network, ip: "192.168.100.4"
+    clienteN3.vm.hostname = "clienteN3"
+    clienteN3.vm.provision "shell", path: "scriptN3.sh", run: "always"
+    clienteN3.vm.provision "shell", inline: $runserviceN3, run: "always"
+  end
+
+  config.vm.define :clienteN2 do |clienteN2|
+    clienteN2.vm.box = "bento/ubuntu-22.04"
+    clienteN2.vm.network :private_network, ip: "192.168.100.5"
+    clienteN2.vm.hostname = "clienteN2"
+    clienteN2.vm.provision "shell", path: "scriptN2.sh", run: "always"
+    clienteN2.vm.provision "shell", inline: $runserviceN2, run: "always"
+  end
+
+  config.vm.define :servidorN1 do |servidorN1|
+    servidorN1.vm.box = "bento/ubuntu-22.04"
+    servidorN1.vm.network :private_network, ip: "192.168.100.2"
+    servidorN1.vm.hostname = "servidorN1"
+    servidorN1.vm.provision "shell", path: "scriptN1.sh", run: "always"
+
+  end
+
+end

@@ -144,9 +144,9 @@ def predict():
         
         body = str.encode(json.dumps(info))
 
-        url = 'http://e761a05d-1678-48dd-89ad-92c45149bcf3.australiaeast.azurecontainer.io/score'
+        url = 'http://3dd4867d-54ee-49ee-aeec-6cd5bbe8f39c.australiaeast.azurecontainer.io/score'
         # Replace this with the primary/secondary key or AMLToken for the endpoint
-        api_key = 'PbIj5f6wNksAWja6WblvHABtvMGLy1FM'
+        api_key = 'nyj84tb7VSA3CiqlTeL92I6P2ijf4y5A'
         if not api_key:
             raise Exception("A key should be provided to invoke the endpoint")
 
